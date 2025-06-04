@@ -57,32 +57,32 @@ public class ImageConverter {
         }
 
         for (int row = 0; row < width; row++) { // add neighbors, if neighbor does not exist (out of bounds) it makes it null
-            for (int col = 0; col < height; col++) { // TODO if row = 0 then don't check row above, if col = 0 don't check for column to left, etc
-                try {
-                    nodes[row][col].addNeighbor(nodes[row - 1][col]); // Node to the top
+            for (int col = 0; col < height; col++) {
+                if (row != 0) {
+                    nodes[row][col].addNeighbor(nodes[row - 1][col]); // node above
                 }
-                catch (IndexOutOfBoundsException e) {
+                else {
                     nodes[row][col].addNeighbor(null);
                 }
 
-                try {
-                    nodes[row][col].addNeighbor(nodes[row][col + 1]); // Node to the right
+                if (col != width - 1) {
+                    nodes[row][col].addNeighbor(nodes[row][col + 1]); // node to the right
                 }
-                catch (IndexOutOfBoundsException e) {
+                else {
                     nodes[row][col].addNeighbor(null);
                 }
 
-                try {
-                    nodes[row][col].addNeighbor(nodes[row + 1][col]); // Node to the bottom
+                if (row != width - 1) { // node below
+                    nodes[row][col].addNeighbor(nodes[row + 1][col]);
                 }
-                catch (IndexOutOfBoundsException e) {
+                else {
                     nodes[row][col].addNeighbor(null);
                 }
 
-                try {
-                    nodes[row][col].addNeighbor(nodes[row][col - 1]); // Node to the left
+                if (col != 0) { // node to the left
+                    nodes[row][col].addNeighbor(nodes[row][col - 1]);
                 }
-                catch (IndexOutOfBoundsException e) {
+                else {
                     nodes[row][col].addNeighbor(null);
                 }
             }

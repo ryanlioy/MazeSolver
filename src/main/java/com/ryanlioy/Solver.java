@@ -3,12 +3,6 @@ package com.ryanlioy;
 import java.util.ArrayList;
 
 public class Solver {
-    private Graph graph;
-
-    public Solver(Graph graph) {
-        this.graph = graph;
-    }
-
     public ArrayList<Node> aStar(Node start, Node finish) {
         if (start == null || finish == null) { // no start/end node
             return null;
@@ -41,6 +35,7 @@ public class Solver {
 
             ArrayList<Node> neighbors = current.getNeighbors();
             for (Node n : neighbors) { // check neighbors
+                // TODO remove try/catch
                 try {
                     if (!closeSet.contains(n) && !n.isWall()) {
                         double tempG = current.getG() + heuristic(current, n);
