@@ -35,8 +35,7 @@ public class Solver {
 
             ArrayList<Node> neighbors = current.getNeighbors();
             for (Node n : neighbors) { // check neighbors
-                // TODO remove try/catch
-                try {
+                if (n != null) {
                     if (!closeSet.contains(n) && !n.isWall()) {
                         double tempG = current.getG() + heuristic(current, n);
                         if (!openSet.contains(n)) {
@@ -48,9 +47,7 @@ public class Solver {
                         n.setG(tempG);
                         n.setF(n.getG() + heuristic(n, finish));
                     }
-                } catch (NullPointerException e) { // neighbors that do not exist are set to null and requires this
                 }
-
             }
         }
         return null; // no solution
