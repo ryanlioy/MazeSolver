@@ -3,8 +3,15 @@ package com.ryanlioy;
 import java.util.ArrayList;
 
 public class Solver {
-    public ArrayList<Node> aStar(Node start, Node finish) {
-        if (start == null || finish == null) { // no start/end node
+
+    /**
+     * Solve using A* pathfinding algorithm
+     * @param start the node to start at
+     * @param end the end node
+     * @return {@link ArrayList} of {@link Node} which is the solution path, if no solution then null
+     */
+    public static ArrayList<Node> aStar(Node start, Node end) {
+        if (start == null || end == null) { // no start/end node
             return null;
         }
         ArrayList<Node> closeSet = new ArrayList<>(); // the Nodes that are not useful
@@ -20,7 +27,7 @@ public class Solver {
             }
             Node current = openSet.get(bestF);
 
-            if (current.equals(finish)) { // check if current node is end node
+            if (current.equals(end)) { // check if current node is end node
                 Node temp = current;
                 path.add(temp);
                 while (temp.getPrevious() != null) { // backtracking path
@@ -45,7 +52,7 @@ public class Solver {
                         }
                         n.setPrevious(current);
                         n.setG(tempG);
-                        n.setF(n.getG() + heuristic(n, finish));
+                        n.setF(n.getG() + heuristic(n, end));
                     }
                 }
             }
@@ -56,11 +63,20 @@ public class Solver {
     /*
     This is the H in A* and the difference between A* and Dijkstra.
      */
-    private static double heuristic(Node end, Node finish) {
-        int y1 = end.getCol();
-        int x1 = end.getRow();
-        int y2 = finish.getCol();
-        int x2 = finish.getRow();
-        return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)); // Euclidean distance
+
+    /**
+     * This is the heuristic, the h in A*, and is the difference between A* and Dijkstra's algorithm.
+     * <br>
+     * This is just the Euclidean distance
+     * @param a the node to start at
+     * @param b the end node
+     * @return the Euclidean distance between the two passed nodes
+     */
+    private static double heuristic(Node a, Node b) {
+        int y1 = a.getCol();
+        int x1 = a.getRow();
+        int y2 = b.getCol();
+        int x2 = b.getRow();
+        return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
     }
 }

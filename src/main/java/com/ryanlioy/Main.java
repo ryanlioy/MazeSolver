@@ -7,12 +7,11 @@ public class Main {
         ImageConverter converter = new ImageConverter("./mazes/250x250.png");
         Graph graph = converter.toGraph();
 
-        Solver solver = new Solver();
         long start = System.nanoTime();
 
         // all nodes are linked together by their neighbors. By passing in the
         // start and finish node the entire graph is effectively passed in
-        ArrayList<Node> solution = solver.aStar(graph.getStart(), graph.getFinish());
+        ArrayList<Node> solution = Solver.aStar(graph.getStart(), graph.getFinish());
         long finish = System.nanoTime();
         if (solution == null){
             System.out.println("No solution found");

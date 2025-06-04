@@ -16,7 +16,6 @@ public class Graph {
         this.width = graph[0].length;
         this.start = findStart();
         this.finish = findFinish();
-
     }
 
     public Node getNode(int row, int col) {

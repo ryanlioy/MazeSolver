@@ -96,8 +96,15 @@ public class ImageConverter {
     black and white, and the solution wasn't obvious. So here we are, rebuilding
     the image.
      */
+
+    /**
+     * Converts a {@link Graph} to a {@link BufferedImage}
+     * and saves it to same director as the input image
+     * @param graph the {@link Graph} to convert
+     * @param solution list of nodes representing the solution
+     */
     public void toImage(Graph graph, ArrayList<Node> solution) throws IOException { // converts to image and saves it at location from constructor
-        BufferedImage ret = new BufferedImage(graph.getWidth(), graph.getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage imageWithSolution = new BufferedImage(graph.getWidth(), graph.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         // find OS because windows is a special cookie
         int index = System.getProperty("os.name").contains("Windows") ? path.lastIndexOf("\\") : path.lastIndexOf("/");
@@ -111,22 +118,22 @@ public class ImageConverter {
         for (int row = 0; row < width; row++) { // rebuild image
             for (int col = 0; col < height; col++) {
                 if (graph.getNode(col, row).isWall()) {
-                    ret.setRGB(row, col, BLACK);
+                    imageWithSolution.setRGB(row, col, BLACK);
                 }
                 if (!graph.getNode(col, row).isWall()) {
-                    ret.setRGB(row, col, WHITE);
+                    imageWithSolution.setRGB(row, col, WHITE);
                 }
             }
         }
         try { // make sure
             for (Node n : solution) { // put solution
-                ret.setRGB(n.getCol(), n.getRow(), RED);
+                imageWithSolution.setRGB(n.getCol(), n.getRow(), RED);
             }
         }
         catch (NullPointerException e) {
             // this is here so the output is just the input
         }
 
-        ImageIO.write(ret, "png", file);
+        ImageIO.write(imageWithSolution, "png", file);
     }
 }
