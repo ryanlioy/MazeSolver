@@ -8,12 +8,15 @@ public class Graph {
     private final Node start;
     private final Node finish;
     private final int height;
+    private final int width;
 
     public Graph(Node[][] graph) {
         this.graph = graph;
+        this.height = graph.length;
+        this.width = graph[0].length;
         this.start = findStart();
         this.finish = findFinish();
-        this.height = graph.length;
+
     }
 
     public Node getNode(int row, int col) {
@@ -30,6 +33,14 @@ public class Graph {
 
     public Node getFinish() {
         return finish;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 
     // TODO instead of assuming the start and end are on the top and bottom of image why not search the edges for two white pixels?
